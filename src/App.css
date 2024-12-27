@@ -1,0 +1,151 @@
+/* App.css */
+
+/* Overall page container with a soft gradient background */
+.page-container {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #d9afd9 0%, #97d9e1 100%);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Hero section at top */
+.hero-header {
+  text-align: center;
+  padding: 40px 20px;
+  color: #fff;
+}
+.app-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+.app-subtitle {
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+/* Main content wrapper */
+.content-wrapper {
+  flex: 1;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Glass card style */
+.glass-card {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  margin-bottom: 30px;
+  padding: 20px;
+  color: #000;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Titles */
+.section-title {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.small-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+/* Form area, editor area */
+.form-area, .editor-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.form-group input[type="file"],
+.form-group textarea {
+  background: rgba(255,255,255,0.6);
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  outline: none;
+  color: #333;
+}
+
+/* Buttons */
+.action-btn {
+  align-self: flex-start;
+  background: #6a5acd;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+.action-btn:hover {
+  background: #7b6dcf;
+}
+
+.confirm-btn {
+  background: #c2185b;
+}
+.confirm-btn:hover {
+  background: #d81b60;
+}
+.download-btn {
+  background: #00897b;
+}
+.download-btn:hover {
+  background: #00a299;
+}
+
+/* PDF frame inside the glass card */
+.pdf-frame {
+  width: 100%;
+  height: 500px;
+  margin-top: 10px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+}
+
+/* Footer */
+.footer-area {
+  text-align: center;
+  padding: 10px 0;
+  background: #fafafa;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+/* Simple fade-in animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+/* Additional fade-in class */
+.fade-in {
+  animation: fadeInUp 0.5s ease forwards;
+}
