@@ -3,25 +3,28 @@ import { useState } from 'react';
 import axios from 'axios';
 
 export function useAppLogic() {
-  // Step 1 states
+  // 1) States for CV adaptation
   const [pdfFile, setPdfFile] = useState(null);
   const [jobDescription, setJobDescription] = useState('');
   const [updatedCV, setUpdatedCV] = useState('');
   const [finalCV, setFinalCV] = useState('');
   const [pdfUrl, setPdfUrl] = useState('');
+  const [coverLetterPdfUrl, setCoverLetterPdfUrl] = useState('');
 
-  // Step 2 states (raw text approach is replaced by finalCV usage)
-  // Actually we do not need a second approach if we are focusing
-  // on "Confirm & Generate" calling generate-advanced
+  // 2) State for AI-generated cover letter HTML
+  const [coverLetterHTML, setCoverLetterHTML] = useState('');
 
-  // 1) Upload PDF (file) + jobDescription => /generate => updatedCV
+  // -- Upload PDF
   const handleUploadChange = (e) => {
     setPdfFile(e.target.files[0]);
   };
+
+  // -- Track job description text
   const handleJobDescChange = (e) => {
     setJobDescription(e.target.value);
   };
 
+  // -- Generate updated CV from PDF + jobDescription
   const handleGenerateClick = async (e) => {
     e.preventDefault();
     if (!pdfFile || !jobDescription) {
@@ -46,14 +49,13 @@ export function useAppLogic() {
     }
   };
 
-  // 2) “Confirm & Generate” => /generate-advanced => final PDF
+  // -- Confirm final CV text -> /generate-advanced -> PDF
   const handleConfirmAndGenerate = async () => {
     if (!finalCV) {
       alert('No final CV text to send to the AI.');
       return;
     }
     try {
-      // Post finalCV as { fullText: finalCV } to /generate-advanced
       const response = await axios.post(
         'http://localhost:5000/api/cv/generate-advanced',
         { fullText: finalCV },
@@ -68,18 +70,51 @@ export function useAppLogic() {
     }
   };
 
+  // -- Generate cover letter from PDF + jobDescription
+  // (No need to rely on updatedCV/finalCV. We just want the raw PDF and jobDesc)
+  const generateCoverLetter = async () => {
+    if (!pdfFile || !jobDescription) {
+      alert('Please select a PDF and enter a job description before generating cover letter');
+      return;
+    }
+    try {
+      const formData = new FormData();
+      formData.append('file', pdfFile);
+      formData.append('jobDescription', jobDescription);
+
+      // We request a PDF binary => use responseType: 'blob'
+      const resp = await axios.post(
+        'http://localhost:5000/api/cv/generate-cover',
+        formData,
+        { responseType: 'blob' }
+      );
+
+      // Convert the blob to an object URL, store in state
+      const fileBlob = new Blob([resp.data], { type: 'application/pdf' });
+      const pdfUrl = URL.createObjectURL(fileBlob);
+      setCoverLetterPdfUrl(pdfUrl);
+    } catch (err) {
+      console.error('Error generating cover letter', err);
+      alert('Failed to generate cover letter');
+    }
+  };
+
+
   return {
-    // states
+    // States
     pdfFile, setPdfFile,
     jobDescription, setJobDescription,
     updatedCV, setUpdatedCV,
     finalCV, setFinalCV,
     pdfUrl, setPdfUrl,
+    coverLetterHTML, setCoverLetterHTML,
+    coverLetterPdfUrl, setCoverLetterPdfUrl,
 
-    // handlers
+    // Handlers
     handleUploadChange,
     handleJobDescChange,
     handleGenerateClick,
-    handleConfirmAndGenerate
+    handleConfirmAndGenerate,
+    generateCoverLetter
   };
 }
