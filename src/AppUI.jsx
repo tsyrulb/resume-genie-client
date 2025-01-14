@@ -1,29 +1,36 @@
 // AppUI.jsx
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 export default function AppUI(props) {
   const {
     // CV states
-    jobDescription, updatedCV, finalCV, pdfUrl,
-    handleUploadChange, handleJobDescChange,
-    handleGenerateClick, handleConfirmAndGenerate, setFinalCV,
+    jobDescription,
+    updatedCV,
+    finalCV,
+    pdfUrl,
 
-    coverLetterPdfUrl,
-    coverLetterHTML,
-    generateCoverLetter
+    handleUploadChange,
+    handleJobDescChange,
+    handleGenerateClick,
+    handleConfirmAndGenerate,
+    setFinalCV,
+
+    // For cover letter
+    coverLetterPdfUrl, // A blob URL for the cover letter PDF
+    coverLetterHTML, // Optional HTML preview if returned by the server
+    generateCoverLetter,
   } = props;
 
   return (
     <div className="page-container">
       <header className="hero-header">
-        <h1 className="app-title">CV Summary & Cover Letter</h1>
+        <h1 className="app-title">CV Summary &amp; Cover Letter</h1>
         <p className="app-subtitle">Empowered by Gemini AI</p>
       </header>
 
       <main className="content-wrapper">
-
-        {/* Upload PDF & job desc */}
+        {/* 1) Upload PDF & job desc, generate CV or cover letter */}
         <section className="glass-card fade-in">
           <h2 className="section-title">Generate Updated CV or Cover Letter</h2>
           <form onSubmit={handleGenerateClick} className="form-area">
@@ -45,7 +52,7 @@ export default function AppUI(props) {
             </div>
 
             {/* Buttons side by side */}
-            <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+            <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
               <button type="submit" className="action-btn">
                 Generate Updated CV
               </button>
@@ -53,7 +60,7 @@ export default function AppUI(props) {
                 type="button"
                 className="action-btn confirm-btn"
                 onClick={() => {
-                  console.log('Cover Letter button clicked');
+                  console.log("Cover Letter button clicked");
                   generateCoverLetter();
                 }}
               >
@@ -64,7 +71,7 @@ export default function AppUI(props) {
 
           {/* If there's an updated CV, let user edit + confirm to PDF */}
           {updatedCV && (
-            <div className="editor-area fade-in" style={{ marginTop: '20px' }}>
+            <div className="editor-area fade-in" style={{ marginTop: "20px" }}>
               <h3 className="small-title">Updated CV (Preview)</h3>
               <textarea
                 rows="10"
@@ -74,7 +81,7 @@ export default function AppUI(props) {
               <button
                 onClick={handleConfirmAndGenerate}
                 className="action-btn confirm-btn"
-                style={{ marginTop: '10px' }}
+                style={{ marginTop: "10px" }}
               >
                 Confirm &amp; Generate (AI)
               </button>
@@ -82,25 +89,43 @@ export default function AppUI(props) {
           )}
         </section>
 
-        {/* PDF Preview for final CV */}
+        {/* 2) Final CV PDF Preview/Download */}
         {pdfUrl && (
           <section className="glass-card fade-in">
-            <h3 className="small-title">Final PDF</h3>
-            <a href={pdfUrl} download="AICV.pdf" className="action-btn download-btn">
+            <h3 className="small-title">Final CV PDF</h3>
+            <a
+              href={pdfUrl}
+              download="AICV.pdf"
+              className="action-btn download-btn"
+            >
               Download PDF
             </a>
+            <iframe src={pdfUrl} title="AI CV PDF" className="pdf-frame" />
+          </section>
+        )}
+
+        {coverLetterPdfUrl && (
+          <section className="glass-card fade-in">
+            <h2 className="section-title">Cover Letter PDF</h2>
+            <a
+              href={coverLetterPdfUrl}
+              download="CoverLetter.pdf"
+              className="action-btn"
+            >
+              Download Cover Letter
+            </a>
             <iframe
-              src={pdfUrl}
-              title="AI CV PDF"
+              src={coverLetterPdfUrl}
+              title="Cover Letter PDF"
               className="pdf-frame"
             />
           </section>
         )}
 
-        {/* Cover Letter HTML preview */}
+        {/* 4) (Optional) Cover Letter HTML preview if your server returns raw HTML */}
         {coverLetterHTML && (
           <section className="glass-card fade-in">
-            <h2 className="section-title">Cover Letter Preview</h2>
+            <h2 className="section-title">Cover Letter Preview (HTML)</h2>
             <div
               className="cover-letter-preview"
               dangerouslySetInnerHTML={{ __html: coverLetterHTML }}

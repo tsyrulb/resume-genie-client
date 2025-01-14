@@ -70,8 +70,6 @@ export function useAppLogic() {
     }
   };
 
-  // -- Generate cover letter from PDF + jobDescription
-  // (No need to rely on updatedCV/finalCV. We just want the raw PDF and jobDesc)
   const generateCoverLetter = async () => {
     if (!pdfFile || !jobDescription) {
       alert('Please select a PDF and enter a job description before generating cover letter');
@@ -81,15 +79,15 @@ export function useAppLogic() {
       const formData = new FormData();
       formData.append('file', pdfFile);
       formData.append('jobDescription', jobDescription);
-
-      // We request a PDF binary => use responseType: 'blob'
+  
+      // Expect PDF in the response -> responseType: 'blob'
       const resp = await axios.post(
         'http://localhost:5000/api/cv/generate-cover',
         formData,
         { responseType: 'blob' }
       );
-
-      // Convert the blob to an object URL, store in state
+  
+      // Convert the blob to an object URL for preview/download
       const fileBlob = new Blob([resp.data], { type: 'application/pdf' });
       const pdfUrl = URL.createObjectURL(fileBlob);
       setCoverLetterPdfUrl(pdfUrl);
@@ -98,7 +96,7 @@ export function useAppLogic() {
       alert('Failed to generate cover letter');
     }
   };
-
+  
 
   return {
     // States
