@@ -23,7 +23,7 @@
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/resume-genie-client.git
+   git clone https://github.com/tsyrulb/resume-genie-client.git
    cd resume-genie-client
    ```
 
