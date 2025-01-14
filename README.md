@@ -24,7 +24,7 @@
 
    ```bash
    git clone https://github.com/yourusername/resume-genie-client.git
-   cd my-cv-client
+   cd resume-genie-client
    ```
 
 2. **Install Dependencies**
