@@ -14,25 +14,20 @@ export default function AppUI(props) {
     handleJobDescChange,
     handleGenerateClick,
     handleConfirmAndGenerate,
-    setFinalCV,
-
-    // For cover letter
-    coverLetterPdfUrl, // A blob URL for the cover letter PDF
-    coverLetterHTML, // Optional HTML preview if returned by the server
-    generateCoverLetter,
+    setFinalCV
   } = props;
 
   return (
     <div className="page-container">
       <header className="hero-header">
-        <h1 className="app-title">CV Summary &amp; Cover Letter</h1>
+        <h1 className="app-title">CV Summary Generator</h1>
         <p className="app-subtitle">Empowered by Gemini AI</p>
       </header>
 
       <main className="content-wrapper">
-        {/* 1) Upload PDF & job desc, generate CV or cover letter */}
+        {/* 1) Upload PDF & job desc => generate updated CV */}
         <section className="glass-card fade-in">
-          <h2 className="section-title">Generate Updated CV or Cover Letter</h2>
+          <h2 className="section-title">Generate Updated CV</h2>
           <form onSubmit={handleGenerateClick} className="form-area">
             <div className="form-group">
               <label>Upload CV (PDF):</label>
@@ -51,22 +46,9 @@ export default function AppUI(props) {
               />
             </div>
 
-            {/* Buttons side by side */}
-            <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-              <button type="submit" className="action-btn">
-                Generate Updated CV
-              </button>
-              <button
-                type="button"
-                className="action-btn confirm-btn"
-                onClick={() => {
-                  console.log("Cover Letter button clicked");
-                  generateCoverLetter();
-                }}
-              >
-                Generate Cover Letter
-              </button>
-            </div>
+            <button type="submit" className="action-btn" style={{ marginTop: "10px" }}>
+              Generate Updated CV
+            </button>
           </form>
 
           {/* If there's an updated CV, let user edit + confirm to PDF */}
@@ -83,7 +65,7 @@ export default function AppUI(props) {
                 className="action-btn confirm-btn"
                 style={{ marginTop: "10px" }}
               >
-                Confirm &amp; Generate (AI)
+                Confirm &amp; Generate PDF
               </button>
             </div>
           )}
@@ -101,35 +83,6 @@ export default function AppUI(props) {
               Download PDF
             </a>
             <iframe src={pdfUrl} title="AI CV PDF" className="pdf-frame" />
-          </section>
-        )}
-
-        {coverLetterPdfUrl && (
-          <section className="glass-card fade-in">
-            <h2 className="section-title">Cover Letter PDF</h2>
-            <a
-              href={coverLetterPdfUrl}
-              download="CoverLetter.pdf"
-              className="action-btn"
-            >
-              Download Cover Letter
-            </a>
-            <iframe
-              src={coverLetterPdfUrl}
-              title="Cover Letter PDF"
-              className="pdf-frame"
-            />
-          </section>
-        )}
-
-        {/* 4) (Optional) Cover Letter HTML preview if your server returns raw HTML */}
-        {coverLetterHTML && (
-          <section className="glass-card fade-in">
-            <h2 className="section-title">Cover Letter Preview (HTML)</h2>
-            <div
-              className="cover-letter-preview"
-              dangerouslySetInnerHTML={{ __html: coverLetterHTML }}
-            />
           </section>
         )}
       </main>

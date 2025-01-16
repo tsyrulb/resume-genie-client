@@ -1,15 +1,14 @@
 # ResumeGenie Client
 
-**ResumeGenie** is a React-based frontend application that implies magical ease in creating professional resumes and cover letters, highlighting the AI-driven aspect.
+**ResumeGenie** is a React-based frontend application that provides a magical, AI-driven approach to creating professional resumes. It integrates with a backend service to parse your existing CV, adapt it's summary to specific job descriptions, and generate a polished, downloadable PDF—all in one streamlined process.
 
 
 ## Features
 
 - **Upload CV**: Easily upload your existing CV in PDF format.
 - **Job Description Input**: Provide details about the job you're applying for.
-- **Generate Updated CV**: Automatically create a tailored CV aligned with the job requirements.
-- **Generate Cover Letter**: Produce a professional cover letter based on your CV and job details.
-- **Preview & Download**: View the generated documents in the browser and download them as PDFs.
+- **Generate Updated CV**: Automatically create a tailored CV aligned with job requirements using AI.
+- **Preview & Download**: View the generated CV in the browser and download it as a PDF.
 
 ## Technologies Used
 
@@ -61,7 +60,7 @@
 
    - **Upload your CV** in PDF format.
    - **Enter the job description** relevant to your application.
-   - Click **"Generate Updated CV"** or **"Generate Cover Letter"**.
+   - Click **"Generate Updated CV"**.
    - **Preview** the generated PDF and **download** as needed.
 
 ## License
