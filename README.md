@@ -1,3 +1,5 @@
+[![ResumeGenie API](https://img.shields.io/badge/GitHub-ResumeGenie%20API-yellow?style=for-the-badge)](https://github.com/tsyrulb/ResumeGenie)
+
 # ResumeGenie Client
 
 **ResumeGenie** is a React-based frontend application that provides a magical, AI-driven approach to creating professional resumes. It integrates with a backend service to parse your existing CV, adapt it's summary to specific job descriptions, and generate a polished, downloadable PDF—all in one streamlined process.
@@ -9,6 +11,7 @@
 - **Job Description Input**: Provide details about the job you're applying for.
 - **Generate Updated CV**: Automatically create a tailored CV aligned with job requirements using AI.
 - **Preview & Download**: View the generated CV in the browser and download it as a PDF.
+![Description of GIF](ResumeGenie.gif)
 
 ## Technologies Used
 
